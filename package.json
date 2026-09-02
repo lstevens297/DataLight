@@ -1,0 +1,87 @@
+{
+  "name": "datalight",
+  "displayName": "DataLight",
+  "description": "Execute SQL from VS Code against SQLite databases.",
+  "version": "0.0.1",
+  "publisher": "datalight",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:sql",
+    "onView:datalight.queryResults",
+    "onCommand:datalight.executeQuery"
+  ],
+  "main": "./dist/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "datalight.executeQuery",
+        "title": "DataLight: Execute Query",
+        "icon": "$(play)"
+      },
+      {
+        "command": "datalight.selectConnection",
+        "title": "DataLight: Select SQLite Connection"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "datalight.executeQuery",
+          "group": "navigation@1",
+          "when": "editorLangId == sql"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "datalight.executeQuery",
+        "key": "ctrl+enter",
+        "when": "editorLangId == sql"
+      }
+    ],
+    "views": {
+      "datalightPanel": [
+        {
+          "id": "datalight.queryResults",
+          "name": "DataLight Query Results",
+          "type": "webview"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "datalightPanel",
+          "title": "DataLight",
+          "icon": "media/datalight.svg"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./tsconfig.json",
+    "test": "npm run compile && vscode-test",
+    "package": "npm run compile"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.36",
+    "sql.js": "^1.10.3",
+    "tabulator-tables": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.14.10",
+    "@types/sql.js": "^1.4.11",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^3.1.0",
+    "mocha": "^10.7.0",
+    "typescript": "^5.5.4"
+  }
+}
